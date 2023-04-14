@@ -1,0 +1,168 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isDeleted Boolean  @default(false)
+
+  email    String       @unique @db.VarChar(255)
+  password String       @db.VarChar(255)
+  isAdmin  Boolean      @default(false)
+  profile  UserProfile?
+}
+
+model UserProfile {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isDeleted Boolean  @default(false)
+
+  firstName   String @db.VarChar(255)
+  lastName    String @db.VarChar(255)
+  phoneNumber String @db.VarChar(255)
+  address     String @db.VarChar(255)
+  userId      String @unique
+  user        User   @relation(fields: [userId], references: [id])
+}
+
+model Category {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isDeleted Boolean  @default(false)
+
+  name  String  @unique @db.VarChar(255)
+  Model Model[]
+}
+
+model Brand {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isDeleted Boolean  @default(false)
+
+  name   String  @unique @db.VarChar(255)
+  imgUrl String
+  models Model[]
+}
+
+model Model {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isDeleted Boolean  @default(false)
+
+  name        String @db.VarChar(255)
+  pricePerDay Int
+
+  brandId     Int
+  brand       Brand        @relation(fields: [brandId], references: [id])
+  categoryId  Int
+  category    Category     @relation(fields: [categoryId], references: [id])
+  modelImages ModelImage[]
+  units       Unit[]
+}
+
+model ModelImage {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isDeleted Boolean  @default(false)
+
+  imgUrl String
+
+  modelId Int
+  model   Model @relation(fields: [modelId], references: [id])
+}
+
+model Unit {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isDeleted Boolean  @default(false)
+
+  noSTNK       String      @unique @db.VarChar(255)
+  platNumber   String      @unique @db.VarChar(255)
+  assemblyDate DateTime
+  purchaseDate DateTime
+  available    Boolean
+  modelId      Int
+  model        Model       @relation(fields: [modelId], references: [id])
+  UnitImage    UnitImage[]
+  orders       Order[]
+}
+
+model UnitImage {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isDeleted Boolean  @default(false)
+
+  imgUrl String
+
+  unitId String
+  unit   Unit   @relation(fields: [unitId], references: [id])
+}
+
+enum UnitStatus {
+  READY
+  ONGOING
+  RETURNED
+}
+
+model Order {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isDeleted Boolean  @default(false)
+
+  pickupDateTime DateTime
+  pickupLocation String
+  returnDateTime DateTime
+  returnLocation String
+  totalPrice     Int
+  paymentStatus  Boolean
+
+  unitId String
+  unit   Unit   @relation(fields: [unitId], references: [id])
+
+  customerId String
+  customer   Customer @relation(fields: [customerId], references: [id])
+
+  unitStatus UnitStatus
+}
+
+model Customer {
+  id        String           @id @default(uuid())
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  isDeleted Boolean          @default(false)
+  profile   CustomerProfile?
+  orders    Order[]
+}
+
+model CustomerProfile {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isDeleted Boolean  @default(false)
+
+  firstName   String @db.VarChar(255)
+  lastName    String @db.VarChar(255)
+  phoneNumber String @db.VarChar(255)
+  address     String @db.VarChar(255)
+
+  customerId String   @unique
+  customer   Customer @relation(fields: [customerId], references: [id])
+}
