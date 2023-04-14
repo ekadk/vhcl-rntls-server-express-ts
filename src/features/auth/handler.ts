@@ -19,4 +19,21 @@ const localSignUpHandler: RequestHandler = async (req, res, next) => {
   }
 };
 
-export { localSignUpHandler };
+const localSigninHandler: RequestHandler = async (req, res, next) => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { email: req.body.email },
+    });
+    if (!user)
+      throw { name: "INVALID_SIGNIN", message: "invalid email or password!" };
+
+    if (req.body.password !== user.password)
+      throw { name: "INVALID_SIGNIN", message: "invalid email or password!" };
+
+    res.status(200).json({ message: "signed in!" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export { localSignUpHandler, localSigninHandler };
