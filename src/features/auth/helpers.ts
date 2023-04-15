@@ -12,3 +12,7 @@ export const createToken = (user: User) => {
 
   return access_token;
 };
+
+export const verifyToken = (access_token: string) => {
+  return jwt.verify(access_token, "user-at-secrets") as jwt.JwtPayload;
+};

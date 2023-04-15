@@ -2,15 +2,20 @@ import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { ErrorRequestHandler } from "express";
 import { INVALID_SIGININ } from "../features/auth";
 import { VALIDATION_ERROR } from "./validate";
+import { INVALID_TOKEN } from "../features/auth/authGuard";
 
 export const errorHandler: ErrorRequestHandler = (error, req, res, next) => {
   console.log(error);
   let code: number = 500;
   let message: string = "Internal server error";
 
-  const errorNames = [INVALID_SIGININ.name, VALIDATION_ERROR.name];
+  const customeErrorNames = [
+    INVALID_SIGININ.name,
+    VALIDATION_ERROR.name,
+    INVALID_TOKEN.name,
+  ];
 
-  if (errorNames.includes(error.name)) {
+  if (customeErrorNames.includes(error.name)) {
     code = error.code;
     message = error.message;
   }
