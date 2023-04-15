@@ -9,12 +9,6 @@ export const errorHandler: ErrorRequestHandler = (error, req, res, next) => {
   let code: number = 500;
   let message: string = "Internal server error";
 
-  const customeErrorNames = [
-    INVALID_SIGININ.name,
-    VALIDATION_ERROR.name,
-    INVALID_TOKEN.name,
-  ];
-
   if (customeErrorNames.includes(error.name)) {
     code = error.code;
     message = error.message;
@@ -30,3 +24,9 @@ export const errorHandler: ErrorRequestHandler = (error, req, res, next) => {
 
   res.status(code).json({ message });
 };
+
+const customeErrorNames = [
+  INVALID_SIGININ.name,
+  VALIDATION_ERROR.name,
+  INVALID_TOKEN.name,
+];
