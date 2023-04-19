@@ -17,10 +17,10 @@ export const createMakeHandler: RequestHandler = async (req, res, next) => {
 
 export const getAllMakeHandler: RequestHandler = async (req, res, next) => {
   try {
-    const categories = await prisma.make.findMany({
+    const makes = await prisma.make.findMany({
       where: { isDeleted: false },
     });
-    res.status(200).json({ categories });
+    res.status(200).json({ makes });
   } catch (error) {
     next(error);
   }
