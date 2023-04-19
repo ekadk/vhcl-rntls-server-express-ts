@@ -46,7 +46,7 @@ model Category {
   Model Model[]
 }
 
-model Brand {
+model Make {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -67,7 +67,7 @@ model Model {
   pricePerDay Int
 
   brandId     Int
-  brand       Brand        @relation(fields: [brandId], references: [id])
+  brand       Make        @relation(fields: [brandId], references: [id])
   categoryId  Int
   category    Category     @relation(fields: [categoryId], references: [id])
   modelImages ModelImage[]
