@@ -1,7 +1,7 @@
 import { RequestHandler } from "express";
 import prisma from "../../db";
 
-export const createmodelHandler: RequestHandler = async (req, res, next) => {
+export const createModelHandler: RequestHandler = async (req, res, next) => {
   try {
     const model = await prisma.model.create({
       data: {
@@ -18,7 +18,7 @@ export const createmodelHandler: RequestHandler = async (req, res, next) => {
   }
 };
 
-export const getAllmodelHandler: RequestHandler = async (req, res, next) => {
+export const getAllModelHandler: RequestHandler = async (req, res, next) => {
   try {
     const models = await prisma.model.findMany({
       where: { isDeleted: false },
@@ -29,7 +29,7 @@ export const getAllmodelHandler: RequestHandler = async (req, res, next) => {
   }
 };
 
-export const getmodelByIdHandler: RequestHandler = async (req, res, next) => {
+export const getModelByIdHandler: RequestHandler = async (req, res, next) => {
   try {
     const model = await prisma.model.findFirst({
       where: { id: +req.params.id, isDeleted: false },
@@ -41,7 +41,7 @@ export const getmodelByIdHandler: RequestHandler = async (req, res, next) => {
   }
 };
 
-export const editmodelByIdHandler: RequestHandler = async (req, res, next) => {
+export const editModelByIdHandler: RequestHandler = async (req, res, next) => {
   try {
     const model = await prisma.model.findUnique({
       where: { id: +req.params.id },
