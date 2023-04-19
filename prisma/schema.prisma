@@ -42,8 +42,8 @@ model Category {
   updatedAt DateTime @updatedAt
   isDeleted Boolean  @default(false)
 
-  name  String  @unique @db.VarChar(255)
-  Model Model[]
+  name   String  @unique @db.VarChar(255)
+  models Model[]
 }
 
 model Make {
@@ -65,25 +65,13 @@ model Model {
 
   name        String @db.VarChar(255)
   pricePerDay Int
+  imgUrl      String
 
-  brandId     Int
-  brand       Make        @relation(fields: [brandId], references: [id])
-  categoryId  Int
-  category    Category     @relation(fields: [categoryId], references: [id])
-  modelImages ModelImage[]
-  units       Unit[]
-}
-
-model ModelImage {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  isDeleted Boolean  @default(false)
-
-  imgUrl String
-
-  modelId Int
-  model   Model @relation(fields: [modelId], references: [id])
+  makeId     Int
+  make       Make     @relation(fields: [makeId], references: [id])
+  categoryId Int
+  category   Category @relation(fields: [categoryId], references: [id])
+  units      Unit[]
 }
 
 model Unit {

@@ -60,22 +60,11 @@ CREATE TABLE "Model" (
     "isDeleted" BOOLEAN NOT NULL DEFAULT false,
     "name" VARCHAR(255) NOT NULL,
     "pricePerDay" INTEGER NOT NULL,
-    "brandId" INTEGER NOT NULL,
+    "imgUrl" TEXT NOT NULL,
+    "makeId" INTEGER NOT NULL,
     "categoryId" INTEGER NOT NULL,
 
     CONSTRAINT "Model_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "ModelImage" (
-    "id" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
-    "isDeleted" BOOLEAN NOT NULL DEFAULT false,
-    "imgUrl" TEXT NOT NULL,
-    "modelId" INTEGER NOT NULL,
-
-    CONSTRAINT "ModelImage_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -175,13 +164,10 @@ CREATE UNIQUE INDEX "CustomerProfile_customerId_key" ON "CustomerProfile"("custo
 ALTER TABLE "UserProfile" ADD CONSTRAINT "UserProfile_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Model" ADD CONSTRAINT "Model_brandId_fkey" FOREIGN KEY ("brandId") REFERENCES "Make"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Model" ADD CONSTRAINT "Model_makeId_fkey" FOREIGN KEY ("makeId") REFERENCES "Make"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Model" ADD CONSTRAINT "Model_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "Category"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "ModelImage" ADD CONSTRAINT "ModelImage_modelId_fkey" FOREIGN KEY ("modelId") REFERENCES "Model"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Unit" ADD CONSTRAINT "Unit_modelId_fkey" FOREIGN KEY ("modelId") REFERENCES "Model"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
