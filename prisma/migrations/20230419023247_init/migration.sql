@@ -41,7 +41,7 @@ CREATE TABLE "Category" (
 );
 
 -- CreateTable
-CREATE TABLE "Brand" (
+CREATE TABLE "Make" (
     "id" SERIAL NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE "Brand" (
     "name" VARCHAR(255) NOT NULL,
     "imgUrl" TEXT NOT NULL,
 
-    CONSTRAINT "Brand_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Make_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -160,7 +160,7 @@ CREATE UNIQUE INDEX "UserProfile_userId_key" ON "UserProfile"("userId");
 CREATE UNIQUE INDEX "Category_name_key" ON "Category"("name");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Brand_name_key" ON "Brand"("name");
+CREATE UNIQUE INDEX "Make_name_key" ON "Make"("name");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Unit_noSTNK_key" ON "Unit"("noSTNK");
@@ -175,7 +175,7 @@ CREATE UNIQUE INDEX "CustomerProfile_customerId_key" ON "CustomerProfile"("custo
 ALTER TABLE "UserProfile" ADD CONSTRAINT "UserProfile_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Model" ADD CONSTRAINT "Model_brandId_fkey" FOREIGN KEY ("brandId") REFERENCES "Brand"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Model" ADD CONSTRAINT "Model_brandId_fkey" FOREIGN KEY ("brandId") REFERENCES "Make"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Model" ADD CONSTRAINT "Model_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "Category"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
