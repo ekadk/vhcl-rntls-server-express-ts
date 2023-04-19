@@ -7,7 +7,8 @@ export const createmodelHandler: RequestHandler = async (req, res, next) => {
       data: {
         name: req.body.name,
         pricePerDay: req.body.pricePerDay,
-        brandId: req.body.brandId,
+        imgUrl: req.body.imgUrl,
+        makeId: req.body.makeId,
         categoryId: req.body.categoryId,
       },
     });
@@ -51,7 +52,8 @@ export const editmodelByIdHandler: RequestHandler = async (req, res, next) => {
       data: {
         name: req.body.name,
         pricePerDay: req.body.pricePerDay,
-        brandId: req.body.brandId,
+        imgUrl: req.body.imgUrl,
+        makeId: req.body.makeId,
         categoryId: req.body.categoryId,
       },
     });
