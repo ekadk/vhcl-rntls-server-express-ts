@@ -1,17 +1,17 @@
 import { Router } from "express";
 import {
-  createMakeHandler,
-  editMakeByIdHandler,
-  getAllMakeHandler,
-  getMakeByIdHandler,
+  createModelHandler,
+  editModelByIdHandler,
+  getAllModelHandler,
+  getModelByIdHandler,
 } from "./handler";
-import createMakeValidator from "./validator";
+import createModelValidator from "./validator";
 
 const router = Router();
 
-router.post("/", createMakeValidator(), createMakeHandler);
-router.get("/", getAllMakeHandler);
-router.get("/:id", getMakeByIdHandler);
-router.patch("/:id", createMakeValidator(), editMakeByIdHandler);
+router.post("/", createModelValidator(), createModelHandler);
+router.get("/", getAllModelHandler);
+router.get("/:id", getModelByIdHandler);
+router.patch("/:id", createModelValidator(), editModelByIdHandler);
 
-export { router as MakeRouter };
+export { router as ModelRouter };
