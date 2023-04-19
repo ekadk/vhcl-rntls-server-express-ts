@@ -5,6 +5,7 @@ import { VALIDATION_ERROR } from "./validate";
 import { INVALID_TOKEN } from "../features/auth/authGuard";
 import { USER_PROFILE_NOT_FOUND } from "../features/user/handler";
 import { CATEGORY_NOT_FOUND } from "../features/category/handler";
+import { MAKE_NOT_FOUND } from "../features/make/handler";
 
 export const errorHandler: ErrorRequestHandler = (error, req, res, next) => {
   console.log(error);
@@ -33,4 +34,5 @@ const customeErrorNames = [
   INVALID_TOKEN.name,
   USER_PROFILE_NOT_FOUND.name,
   CATEGORY_NOT_FOUND.name,
+  MAKE_NOT_FOUND.name
 ];
