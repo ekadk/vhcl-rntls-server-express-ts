@@ -51,7 +51,6 @@ export const editCategoryByIdHandler: RequestHandler = async (
       where: { id: +req.params.id },
     });
     if (!category) throw CATEGORY_NOT_FOUND;
-    res.status(200).json({ category });
     const updatedCategory = await prisma.category.update({
       where: { id: category.id },
       data: { name: req.body.name },
