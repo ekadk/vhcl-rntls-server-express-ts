@@ -14,4 +14,4 @@ router.get("/", getAllUnitHandler);
 router.get("/:id", getUnitByIdHandler);
 router.patch("/:id", createUnitValidator(), editUnitByIdHandler);
 
-export { router as categoryRouter };
+export { router as unitRouter };
