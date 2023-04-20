@@ -1,7 +1,7 @@
 import { body } from "express-validator";
 import validate from "../../middlewares/validate";
 
-export default function createCategoryValidator() {
+export default function createUnitValidator() {
   return validate([
     body("noSTNK")
       .notEmpty()
